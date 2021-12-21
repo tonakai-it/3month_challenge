@@ -7,6 +7,17 @@ body {
     background-color: rgb(0, 0, 0);
 }
 
+h1 {
+    text-align: center;
+    color: white;
+}
+
+ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
 form {
     width: 30rem;
     margin: 3rem auto;
@@ -20,7 +31,11 @@ label {
     display: block;
 }
 
-input {
+textarea{
+    resize: vertical;
+}
+
+input, textarea,select {
     width: 100%; 
     display: block;
     margin-bottom: 1rem;
@@ -30,7 +45,7 @@ input {
     color: rgb(61, 58, 58);
 }
 
-input:focus{
+input:focus,textarea:focus{
     background-color: rgb(219, 190, 253);
     color: rgb(32, 5, 63);
     border: rgb(32, 5, 63);
