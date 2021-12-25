@@ -11,8 +11,22 @@ let job = {
     title: "Developer",
     place: "tokyo",
     salary: 200000
-}
+};
 
 let jobTitle = job.title
 
-alert(hobbies[2])
+alert(hobbies[2]);
+alert(job.salary);
+
+let totalAdultYears
+
+function calculateAdultYears(userAge) {
+    return userAge - 18;
+}
+
+totalAdultYears = calculateAdultYears(age);
+alert(totalAdultYears);
+
+age = 45;
+totalAdultYears = calculateAdultYears(age);
+alert(totalAdultYears);
