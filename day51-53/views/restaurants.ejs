@@ -16,8 +16,8 @@
         <p>We found <%= numberOfRestaurants %> restaurants</p>
         <ul id="restaurants-list">
           <% for (const restaurant of restaurants) {%>
-            <!-- includable partial -->
             <%- include('includes/restaurants/restaurant-item', {restaurant: restaurant}) %>
+            <!-- includable partial -->
             <!-- includeの第二引数のオブジェクトは、keyがpartial送り先へのkeyで、valueがこっち側のrestaurant -->
           <% } %>
         </ul>
