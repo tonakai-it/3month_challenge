@@ -1,11 +1,19 @@
-const filePath = path.join(__dirname, 'data', 'restaurants.json')
+const fs = require('fs')
+const path = require('path')
 
-module.exports = function getStoredRestaurants() {
+const filePath = path.join(__dirname,'..', 'data', 'restaurants.json')
+
+function getStoredRestaurants() {
     const fileData = fs.readFileSync(filePath)
     const storedRestaurants = JSON.parse(fileData);
     return storedRestaurants
 }
 
-module.exports = function storedRestaurants(storableRestaurants) {
+function storedRestaurants(storableRestaurants) {
     fs.writeFileSync(filePath, JSON.stringify(storableRestaurants))
+}
+
+module.exports = {
+    getStoredRestaurants,
+    storedRestaurants,
 }

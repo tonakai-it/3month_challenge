@@ -1,11 +1,11 @@
 const path = require("path");
 const fs = require("fs");
 
-const uuid = require('uuid')
 
 const express = require('express');
 
-const utilModule = require("./util/restaurant-data")
+const defaultRoutes = require('./routes/default')
+const restaurantRoutes = require('./routes/restaurants')
 
 const app = express();
 
@@ -15,54 +15,12 @@ app.set('view engine', 'ejs')
 app.use(express.urlencoded({extended:false}))
 app.use(express.static('public'))
 
-app.get("/", (req,res) =>{
-    res.render('index')
-})
+app.use('/', defaultRoutes);
+// 最初"/"に合致するものを探す defaultRoutesを全て探したらここに返って処理続行
 
-app.get("/restaurants", (req, res)=>{
-    const filePath = path.join(__dirname, 'data', 'restaurants.json')
+app.use('/', restaurantRoutes)
+// これで良い
 
-    const fileData = fs.readFileSync(filePath)
-    const storedRestaurants = JSON.parse(fileData);
-    res.render('restaurants', { numberOfRestaurants:storedRestaurants.length, restaurants:storedRestaurants  })
-})
-// app.get('/restaurant1')
-// app.get('/restaurant1')
-app.get('/restaurants/:id', (req, res)=> { //restaurants/r1
-    const resutarantId = req.params.id; // [req.params.]でslug部分(=id)が補完されるようになっている
-    const restaurants = utilModule.getStoredRestaurants()
-
-
-    for (const restaurant of restaurants) {
-        if (restaurant.id === resutarantId) {
-            return res.render('restaurant-detail', {restaurant: restaurant})
-        }
-    }
-
-    res.status(400).render('404');
-})
-
-app.get("/recommend", (req, res)=>{
-    res.render('recommend')
-})
-
-app.post("/recommend", (req,res) =>{
-    const restaurant = req.body;
-    restaurant.id = uuid.v4()
-    const restaurants = utilModule.getStoredRestaurants()
-    restaurants.push(restaurant)
-    utilModule.storedRestaurants(restaurant)
-
-    res.redirect('/confirm');
-})
-
-app.get("/confirm", (req, res)=>{
-    res.render('confirm')
-})
-
-app.get("/about", (req, res)=>{
-    res.render('about')
-})
 
 // urlミスでの表示
 app.use((req,res)=>{
